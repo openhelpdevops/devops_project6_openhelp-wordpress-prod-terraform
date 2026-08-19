@@ -178,15 +178,15 @@ Then:
 Always destroy the application stack before the state stack.
 
 ### 1. Destroy production resources
-
+```bash
     cd prod
     terraform destroy
-
+```
 ### 2. Destroy the state bootstrap stack last
-
+```bash
     cd ../bootstrap-state
     terraform destroy
-
+```
 Do not destroy the state bucket before the production stack, because Terraform still needs the remote state while destroying the production resources.
 
 For the full architecture, Terraform execution flow, security-group rules, DNS/ACM behavior, EFS, RDS, WAF, monitoring, and troubleshooting, see `ARCHITECTURE_AND_EXECUTION.md`.
@@ -194,10 +194,12 @@ For the full architecture, Terraform execution flow, security-group rules, DNS/A
 
 AWS WAF stands for Web Application Firewall. It protects web applications from malicious HTTP and HTTPS requests before they reach the application.
 
-We use AWS WAF to protect web applications from Layer 7 attacks. It inspects HTTP and HTTPS requests and can allow, block, or count traffic based on conditions such as IP address, request rate, URI, headers, SQL injection patterns, and known malicious inputs. In our production WordPress architecture, WAF is associated with the Application Load Balancer, so malicious requests are blocked before they reach the EC2 instances.”
+We use AWS WAF to protect web applications from Layer 7 attacks. It inspects HTTP and HTTPS requests and can allow, block, or count traffic based on conditions such as IP address, request rate, URI, headers, SQL injection patterns, and known malicious inputs.
+
+In our production WordPress architecture, WAF is associated with the Application Load Balancer, so malicious requests are blocked before they reach the EC2 instances.”
 
 Typical rules you can configure include:
-
+```bash
 SQL injection protection
 Cross-site scripting protection
 AWS Managed Common Rule Set
@@ -206,18 +208,20 @@ IP block lists
 Rate limiting
 Geographic restrictions
 Custom URI/header rules
-
+```
 
 First get the region:
-
+```bash
 PS C:\Users\sreej\Desktop\sreejith_devops\openhelp-wordpress-prod-terraform> $REGION = aws configure get region
-
+```
+```bash
 PS C:\Users\sreej\Desktop\sreejith_devops\openhelp-wordpress-prod-terraform> $REGION
 us-east-1
-
+```
 Then list your WAFs:
-
+```bash
 PS C:\Users\sreej\Desktop\sreejith_devops\openhelp-wordpress-prod-terraform> aws wafv2 list-web-acls --scope REGIONAL --region $REGION --output table
+```
 --------------------------------------------------------------------------------------------------------------------------------------------                                                                                                                                                                                                                                                                 
 |                                                                ListWebACLs                                                               |
 +------------------------------------------+-----------------------------------------------------------------------------------------------+
@@ -233,21 +237,22 @@ PS C:\Users\sreej\Desktop\sreejith_devops\openhelp-wordpress-prod-terraform> aws
 |+-------------+--------------------------------------------------------------------------------------------------------------------------+|
 
 Now automatically get the ID of your WAF:
-
+```bash
 PS C:\Users\sreej\Desktop\sreejith_devops\openhelp-wordpress-prod-terraform> $WAFID = aws wafv2 list-web-acls --scope REGIONAL --region $REGION --query "WebACLs[?Name=='openhelp-prod-wordpress-waf'].Id | [0]" --output text
-
+```
 for powershell
-
+```bash
 PS C:\Users\sreej\Desktop\sreejith_devops\openhelp-wordpress-prod-terraform> $WAFID
 c606262a-d3ba-4784-bab5-754df3f5d770
+```
 
 for linux 
-
+```bash
 echo $WAFID
-
+```
 Now list the WAF rules:
-
-PS C:\Users\sreej\Desktop\sreejith_devops\openhelp-wordpress-prod-terraform> aws wafv2 get-web-acl --name openhelp-prod-wordpress-waf --scope REGIONAL --id $WAFID --region $REGION --query "WebACL.Rules[].[Priority,Name]" --output table                                                                                                                                                                  
+```bash
+ C:\Users\sreej\Desktop\sreejith_devops\openhelp-wordpress-prod-terraform> aws wafv2 get-web-acl --name openhelp-prod-wordpress-waf --scope REGIONAL --id $WAFID --region $REGION --query "WebACL.Rules[].[Priority,Name]" --output table                                                                                                                           ```                                       
 ------------------------------------                                                                                                                                                                                                                                                                                                                                                                         
 |             GetWebACL            |
 +----+-----------------------------+
@@ -291,7 +296,7 @@ Enter the IP in CIDR format.
 “Amazon CloudWatch is used to monitor AWS infrastructure and applications. It collects metrics, logs, and events from services such as EC2, RDS, ALB, and WAF. We use it to create dashboards and alarms so that we can detect performance issues, failures, or unusual behavior and respond quickly.”
 
 In your WordPress architecture, CloudWatch can monitor:
-
+```bash
 EC2 CPU, network, status checks
 Apache/WordPress logs
 ALB request count, response time, 4xx/5xx errors
@@ -299,6 +304,7 @@ RDS CPU, connections, free storage, latency
 WAF allowed and blocked requests
 EFS metrics
 CloudWatch alarms for problems
+```
 
 search for cloudwatch in was console
 <img width="1413" height="291" alt="image" src="https://github.com/user-attachments/assets/312b4e0f-f4f6-42ed-9607-9451a9f27462" />
