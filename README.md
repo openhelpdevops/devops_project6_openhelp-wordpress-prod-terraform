@@ -28,6 +28,9 @@ The current AWS Free plan allows RDS MySQL `db.t3.micro`, but it restricts deplo
 
 ## Provisioning
 
+git clone https://github.com/openhelpdevops/devops_project6_openhelp-wordpress-prod-terraform.git
+cd openhelp-wordpress-prod-terraform
+
 ### 1. Create the Terraform remote state infrastructure
 
     cd bootstrap-state
