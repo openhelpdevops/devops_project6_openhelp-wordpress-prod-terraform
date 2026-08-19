@@ -199,6 +199,7 @@ We use AWS WAF to protect web applications from Layer 7 attacks. It inspects HTT
 In our production WordPress architecture, WAF is associated with the Application Load Balancer, so malicious requests are blocked before they reach the EC2 instances.”
 
 Typical rules you can configure include:
+
 ```bash
 SQL injection protection
 Cross-site scripting protection
