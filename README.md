@@ -162,6 +162,12 @@ verify shared file system mounted for uploads
 <img width="577" height="195" alt="image" src="https://github.com/user-attachments/assets/00620958-d633-4be7-b43b-2d8c9804ed97" />
 
 
+## the command we used to retrieve the database credentials from AWS Secrets Manager
+
+```bash
+aws secretsmanager get-secret-value --secret-id openhelp/prod/wordpress/database --region us-east-1 --query SecretString --output text
+```
+
 ## Upgrade to the intended production RDS HA configuration(Not needed as we use free trial)
 
 The architecture supports Multi-AZ. The checked-in value is disabled only because the current AWS Free plan does not allow deployment options other than Single-AZ.
@@ -176,23 +182,7 @@ Then:
     terraform plan
     terraform apply
 
-## Destroy order
 
-Always destroy the application stack before the state stack.
-
-### 1. Destroy production resources
-```bash
-    cd prod
-    terraform destroy
-```
-### 2. Destroy the state bootstrap stack last
-```bash
-    cd ../bootstrap-state
-    terraform destroy
-```
-Do not destroy the state bucket before the production stack, because Terraform still needs the remote state while destroying the production resources.
-
-For the full architecture, Terraform execution flow, security-group rules, DNS/ACM behavior, EFS, RDS, WAF, monitoring, and troubleshooting, see `ARCHITECTURE_AND_EXECUTION.md`.
 # AWS WAF
 
 AWS WAF stands for Web Application Firewall. It protects web applications from malicious HTTP and HTTPS requests before they reach the application.
@@ -322,4 +312,20 @@ you can monitor multiple resources from cloudwatch
 <img width="2326" height="832" alt="image" src="https://github.com/user-attachments/assets/2e701beb-0027-46d7-bb05-0d55b25ee8f2" />
 
 
+## Destroy order
 
+Always destroy the application stack before the state stack.
+
+### 1. Destroy production resources
+```bash
+    cd prod
+    terraform destroy
+```
+### 2. Destroy the state bootstrap stack last
+```bash
+    cd ../bootstrap-state
+    terraform destroy
+```
+Do not destroy the state bucket before the production stack, because Terraform still needs the remote state while destroying the production resources.
+
+For the full architecture, Terraform execution flow, security-group rules, DNS/ACM behavior, EFS, RDS, WAF, monitoring, and troubleshooting, see `ARCHITECTURE_AND_EXECUTION.md`.
