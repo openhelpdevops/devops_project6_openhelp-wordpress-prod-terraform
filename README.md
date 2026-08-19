@@ -79,9 +79,9 @@ Then run:
 
 Terraform creates the ACM DNS validation records in Route 53 and waits for ACM to issue the certificate before creating the HTTPS listener.
 
-# output
+## output
+
 ```bash
-Outputs:
 alb_dns_name = "openhelp-prod-wp-alb-659132022.us-east-1.elb.amazonaws.com"
 bastion_allowed_ssh_cidrs = tolist([
   "217.119.64.150/32",
