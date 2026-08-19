@@ -1,6 +1,13 @@
 # OpenHelp WordPress Production Terraform
 
+
 This project provisions the AWS WordPress architecture with a separate Terraform state bootstrap stack and a production application stack.
+
+Architecture
+
+<img width="1672" height="941" alt="ChatGPT Image Aug 19, 2026, 10_37_45 AM" src="https://github.com/user-attachments/assets/0e96ae0b-4e92-4784-81cc-587457b3961a" />
+
+
 
 ## Current lab / AWS Free-plan settings
 
