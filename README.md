@@ -266,7 +266,7 @@ Architecture will be like this:-
 
 <img width="1672" height="941" alt="ChatGPT Image Aug 19, 2026, 12_36_56 PM" src="https://github.com/user-attachments/assets/c968c9bc-42f8-40a0-800c-58d305f35175" />
 
-I aws ui search AWS WAF
+In the aws ui search AWS WAF
 
 <img width="1132" height="265" alt="image" src="https://github.com/user-attachments/assets/b93cbc31-659e-49fb-976e-f1a52fa67eb9" />
 
@@ -275,7 +275,7 @@ click on rules and understand rules
 <img width="1636" height="257" alt="image" src="https://github.com/user-attachments/assets/24e4ac7f-de7c-4c75-8518-61c9e711be56" />
 
 
-#how to block a access to site from a particular ip
+# how to block a access to site from a particular ip (Try to block your own public ip from whatismyip.com)
 
 Open AWS WAF & Shield.
 Make sure the region is US East (N. Virginia) if that is where your ALB/WAF is deployed.
