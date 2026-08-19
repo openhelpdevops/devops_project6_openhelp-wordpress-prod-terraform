@@ -253,8 +253,8 @@ echo $WAFID
 ```
 Now list the WAF rules:
 ```bash
- C:\Users\sreej\Desktop\sreejith_devops\openhelp-wordpress-prod-terraform> aws wafv2 get-web-acl --name openhelp-prod-wordpress-waf --scope REGIONAL --id $WAFID --region $REGION --query "WebACL.Rules[].[Priority,Name]" --output table                                                                                                                           ```                                       
-------------------------------------                                                                                                                                                                                                                                                                                                                                                                         
+ C:\Users\sreej\Desktop\sreejith_devops\openhelp-wordpress-prod-terraform> aws wafv2 get-web-acl --name openhelp-prod-wordpress-waf --scope REGIONAL --id $WAFID --region $REGION --query "WebACL.Rules[].[Priority,Name]" --output table                                                                                                                             ```                                 
+                                                                                                                                                                                                                                                                                                                                                                   
 |             GetWebACL            |
 +----+-----------------------------+
 |  10|  BlockedIPv4                |
