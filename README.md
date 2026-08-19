@@ -211,6 +211,9 @@ Geographic restrictions
 Custom URI/header rules
 ```
 
+AWS WAF is normally configured by creating a Web ACL, adding managed or custom rules to it, and then associating that Web ACL with a supported AWS resource such as an Application Load Balancer, CloudFront distribution, API Gateway, or AppSync. In a typical web application architecture, we attach WAF to the ALB so every HTTP/HTTPS request is inspected before it reaches the backend EC2 instances.
+
+
 First get the region:
 ```bash
 PS C:\Users\sreej\Desktop\sreejith_devops\openhelp-wordpress-prod-terraform> $REGION = aws configure get region
